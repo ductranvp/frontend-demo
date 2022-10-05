@@ -1,11 +1,34 @@
-<script setup>
+<script>
 import { ref } from 'vue'
 
-defineProps({
-  msg: String
-})
-
-const count = ref(0)
+export default {
+  data() {
+    return {
+      msg: "Hello"
+    }
+  },
+  setup() {
+    const count = ref(0)
+    // expose to template and other options API hooks
+    return {
+      count
+    }
+  },
+  created() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      const vm = this;
+      console.log(import.meta.env.APP_BACKEND_API);
+      fetch(import.meta.env.APP_BACKEND_API)
+        .then((response) => response.json())
+        .then((data) => {
+          vm.msg = data.test
+        });
+    }
+  }
+}
 </script>
 
 <template>
@@ -21,9 +44,8 @@ const count = ref(0)
 
   <p>
     Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
+    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank">create-vue</a>, the official Vue + Vite
+    starter
   </p>
   <p>
     Install
