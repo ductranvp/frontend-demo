@@ -4,7 +4,7 @@ import { ref } from 'vue'
 export default {
   data() {
     return {
-      msg: "Hello"
+      msg: "Hello default"
     }
   },
   setup() {
@@ -24,7 +24,7 @@ export default {
       fetch(import.meta.env.APP_BACKEND_API)
         .then((response) => response.json())
         .then((data) => {
-          vm.msg = data.test
+          vm.msg = data.message
         });
     }
   }
